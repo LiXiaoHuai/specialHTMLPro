@@ -1,12 +1,10 @@
+const DELAY = 1200;
 var S = {
     init: function () {
-        S.Drawing.init('.canvas');
+        S.Drawing.init('.happyCanvas');
         document.body.classList.add('body--ready');
         //想说的话
-        S.UI.simulate("#countdown 5");
-        setTimeout(() => {
-            S.UI.simulate("祝|李|先|生|Happy|Birthday|#rectangle 15x15|#circle 12|||爱你哟")
-        }, 5000);
+        S.UI.simulate("|#countdown 5|祝|李|先|生|Happy|Birthday|#rectangle 15x15|#circle 12|||爱李哟");
         S.Drawing.loop(function () {
             S.Shape.render();
         });
@@ -124,7 +122,7 @@ S.UI = (function () {
                         } else {
                             S.Shape.switchShape(S.ShapeBuilder.letter(index), true);
                         }
-                    }, 1000, value, true);
+                    }, DELAY, value, true);
                     break;
                 case 'rectangle':
                     value = value && value.split('x');
@@ -151,13 +149,13 @@ S.UI = (function () {
                                 time = t;
                                 S.Shape.switchShape(S.ShapeBuilder.letter(time));
                             }
-                        }, 1000);
+                        }, DELAY);
                     }
                     break;
                 default:
                     S.Shape.switchShape(S.ShapeBuilder.letter(current[0] === cmd ? 'HacPai' : current), true);
             }
-        }, 1000, sequence.length);
+        }, DELAY, sequence.length);
     }
     return {
         simulate: function (action) {
